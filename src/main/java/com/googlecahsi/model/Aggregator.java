@@ -3,16 +3,38 @@ package com.googlecahsi.model;
 import java.util.ArrayList;
 import java.util.function.Function;
 
-public class Aggregator {
-    MIN,
-    MAX,
-    AVG,
-    SUM,
-    COUNT;
+public enum Aggregator {
+    MIN {
+        @Override
+        public Function<ArrayList<Double>, Double> getFunction() {
+            return values -> values.stream().min(Double::compare).orElse(Double.NaN);
+        }
+    },
+    MAX {
+        @Override
+        public Function<ArrayList<Double>, Double> getFunction() {
+            return values -> values.stream().max(Double::compare).orElse(Double.NaN);
+        }
+    },
+    AVG {
+        @Override
+        public Function<ArrayList<Double>, Double> getFunction() {
+            return values -> values.stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
+        }
+    },
+    SUM {
+        @Override
+        public Function<ArrayList<Double>, Double> getFunction() {
+            return values -> values.stream().mapToDouble(Double::doubleValue).sum();
+        }
+    },
+    COUNT {
+        @Override
+        public Function<ArrayList<Double>, Double> getFunction() {
+            return values -> (double) values.size();
+        }
+    };
 
-    public Function<ArrayList<Double>, Double> getFunction() {
-        // implementation based on aggregator type
-        // Example implementation for AVG:
-        return values -> values.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
-    }
+    public abstract Function<ArrayList<Double>, Double> getFunction();
 }
+

@@ -1,5 +1,6 @@
 package com.googlecahsi.model;
 
+import java.util.ArrayList;
 import java.util.function.Function;
 
 public class Constraint {
@@ -15,23 +16,29 @@ public class Constraint {
         this.upBound = upBound;
     }
 
+    // Getters
     public String getAttribute() {
+
         return attribute;
     }
 
-    public Function<Double, Integer> getFunction() {
-        // Implement the function to check constraints based on Aggregator type
-        // Example implementation for AVG:
-        return value -> {
-            if (value < lowBound) {
-                return -1;
-            } else if (value > upBound) {
-                return 1;
+    public Aggregator getFunction() {
+        return function;
+    }
+
+    public Function<Double, Integer> getComparisonFunction() {
+        return values -> {
+            double result = function.getFunction().apply(values);
+            if (result < lowBound) {
+                return -1; // Fails lower bound
+            } else if (result > upBound) {
+                return 1;  // Fails upper bound
             } else {
-                return 0;
+                return 0;  // Passes both bounds
             }
         };
     }
+}
 
-// other implementations
+// other if necessary
 
