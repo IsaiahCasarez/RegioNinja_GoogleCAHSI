@@ -1,8 +1,6 @@
 package com.googlecahsi.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 public class Region {
@@ -34,11 +32,9 @@ public class Region {
         return areas.size();
     }
 
-    public double getCompactness() {
-        // Implement compactness calculation based on Definition 5
-        public static double calculateCompactness(double area, double momentOfInertia) {
-            return area / (2 * Math.PI * momentOfInertia);
-        }
+    public static double calculateCompactness(double area, double momentOfInertia) {
+        return area / (2 * Math.PI * momentOfInertia);
+    }
 
         public static void main(String[] args) {
             // Example: placeholder values
@@ -48,7 +44,7 @@ public class Region {
             double compactness = calculateCompactness(regionArea, momentOfInertia);
             System.out.println("Compactness of the region: " + compactness);
         }
-    }
+
 
     public double getDissimilarity(String objective,
                                           HashMap<Integer, Area> areas) {
@@ -60,8 +56,8 @@ public class Region {
             for (int i = 0; i < this.areas.size(); i++) {
 
                 for (int j = i + 1; j < this.areas.size(); j++) {
-                    dissimilarity += Math.abs(Math.abs(areas.get(i).get_dissimilarity_attr())
-                            - Math.abs(Math.abs(areas.get(j).get_dissimilarity_attr())));
+//                    dissimilarity += Math.abs(Math.abs(areas.get(i).get_dissimilarity_attr())
+//                            - Math.abs(Math.abs(areas.get(j).get_dissimilarity_attr())));
                 }
 
             }
@@ -139,6 +135,9 @@ public class Region {
             }
         }
         return constraint.getFunction().apply(values);
+    }
+
+    public Arrays getAreas() {
     }
 }
 

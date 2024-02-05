@@ -1,10 +1,9 @@
 package com.googlecahsi.model;
 
 import java.util.HashMap;
-import java.util.Map;
-
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.Point;
+import java.util.stream.Stream;
+import com.googlecahsi.model.Geometry;
+import com.googlecahsi.model.Point;
 
 public class Area {
     private int id;
@@ -32,9 +31,9 @@ public class Area {
         return polygon;
     }
 
-    public Point getCentroid() {
-        return polygon.getCentroid();
-    }
+//    public Point getCentroid() {
+//       return Point();
+//    }
 
     public double getDissimilarity() {
         return dissimilarity;
@@ -44,6 +43,8 @@ public class Area {
     public boolean isArticulationArea(Region region) {
         // Implementation based on spatial contiguity check
         // For example, using JTS library's touches() method for Geometry
+        // Logic to check if removing the area breaks spatial contiguity of the given region
+        // Implement as needed
         return region.getAreas().stream().anyMatch(this::isNeighbor);
     }
 
@@ -52,30 +53,27 @@ public class Area {
     }
 
     public boolean isNeighbor(Area area) {
-        return polygon.touches(otherArea.getPolygon());
-    }
 
-    public boolean isArticulationArea(Region region) {
-        // Logic to check if removing the area breaks spatial contiguity of the given region
-        // Implement as needed
+       // return polygon.touches(otherArea.getPolygon());
         return false;
     }
 
-    public Object test(Constraint constraint) {
+    public Double test(Constraint constraint) {
         // Implementation based on applying the constraint's function to the relevant attribute
         // Adjust this based on specific requirements and the Constraint class
-        return constraint.getFunction().apply(attributes.get(constraint.getAttribute()));
+       // return constraint.getFunction().apply(attributes.get(constraint.getAttribute()));
+        return 2.0;
     }
 
     // Additional methods for handling region assignment
     public void assignToRegion(Region region) {
         this.region = region;
-        region.addArea(this);
+      //  region.addArea(this);
     }
 
     public void removeFromRegion() {
         if (isAssigned()) {
-            region.removeArea(this);
+           // region.removeArea(this);
             this.region = null;
         }
     }

@@ -36,5 +36,9 @@ public enum Aggregator {
     };
 
     public abstract Function<ArrayList<Double>, Double> getFunction();
+
+    public double apply(ArrayList<Double> values) {
+        return 0;
+    }
 }
 

@@ -1,6 +1,16 @@
 package com.googlecahsi.parser;
 
+import com.googlecahsi.parser.query.InvalidQueryException;
+import com.googlecahsi.parser.query.Query;
+
 public class QueryParser {
+
+    public class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }
+
     public Query parse(String userInput) {
         try {
             // Check if the query follows RSQL specifications
